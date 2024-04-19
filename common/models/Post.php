@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "post".
@@ -20,13 +21,27 @@ use yii\behaviors\TimestampBehavior;
  * @property Category $category
  */
 class Post extends \yii\db\ActiveRecord
-{
+{/**
+ * @var UploadedFile
+ */
+    public $imageFile;
+    const SCENARIO_UPLOAD_FILE = 'upload_file';
+
+
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
         return 'post';
+    }
+
+    public function scenarios()
+    {
+        return [
+            self::SCENARIO_DEFAULT => ['title', 'text', ...],
+            self::SCENARIO_UPLOAD_FILE => ['...', 'imageFile']
+        ];
     }
 
     /**
@@ -39,6 +54,7 @@ class Post extends \yii\db\ActiveRecord
             [['category_id', 'status', 'created_at', 'updated_at'], 'integer'],
             [['title', 'text', 'image'], 'string', 'max' => 255],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
+            [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
         ];
     }
 
@@ -67,6 +83,23 @@ class Post extends \yii\db\ActiveRecord
     public function getCategory()
     {
         return $this->hasOne(Category::class, ['id' => 'category_id']);
+    }
+
+    public function beforeValidate()
+    {
+        if ($this->scenario === self::SCENARIO_UPLOAD_FILE) {
+            $this->imageFile = UploadedFile::getInstance($this, 'imageFile');
+        }
+        return parent::beforeValidate();
+    }
+
+    public function beforeSave($insert)
+    {
+        if ($this->scenario === self::SCENARIO_UPLOAD_FILE) {
+            $this->imageFile->saveAs('uploads/' . $this->imageFile->baseName . '.' . $this->imageFile->extension);
+            $this->setAttribute('image', $this->imageFile->name);
+        }
+        return parent::beforeSave($insert);
     }
 
     public function behaviors()

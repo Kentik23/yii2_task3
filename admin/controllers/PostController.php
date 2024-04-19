@@ -2,6 +2,7 @@
 
 namespace admin\controllers;
 
+use admin\models\UploadForm;
 use common\models\Post;
 use common\models\PostSearch;
 use yii\web\Controller;
@@ -67,7 +68,7 @@ class PostController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Post();
+        $model = new UploadForm();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -120,12 +121,12 @@ class PostController extends Controller
      * Finds the Post model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Post the loaded model
+     * @return UploadForm
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($id): UploadForm
     {
-        if (($model = Post::findOne(['id' => $id])) !== null) {
+        if (($model = UploadForm::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

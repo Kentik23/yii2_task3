@@ -7,13 +7,15 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var common\models\Post $model */
+/** @var admin\models\UploadForm $model */
 /** @var yii\widgets\ActiveForm $form */
+var_dump($model->errors);
 ?>
 
 <div class="post-form">
 
     <?php $form = ActiveForm::begin(); ?>
+
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
@@ -34,9 +36,14 @@ use yii\widgets\ActiveForm;
         ]);
     ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
 
-    <?= $form->field($model, 'image')->textInput(['maxlength' => true]) ?>
+    <?=
+        $form->field($model, 'status')->dropdownList(
+            \common\models\StatusHelper::getAllStatusAsString()
+        );
+    ?>
+
+    <?= $form->field($model, 'imageFile')->fileInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
