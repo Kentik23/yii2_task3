@@ -53,7 +53,8 @@ FontAwesomeAsset::register($this);
             [
                 'label' => 'Контент',
                 'items' => [
-                    ['label' => 'Тексты', 'url' => ['/text']],
+                    ['label' => 'Категории', 'url' => ['/category']],
+                    ['label' => 'Посты', 'url' => ['/post']],
                 ]
             ],
             [
