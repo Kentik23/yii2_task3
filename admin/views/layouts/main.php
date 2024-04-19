@@ -81,6 +81,7 @@ FontAwesomeAsset::register($this);
     }
     echo Nav::widget([
         'options' => ['class' => 'nav navbar-nav ms-auto d-flex nav-pills justify-content-between'],
+
         'items' => $menuItems,
     ]);
     NavBar::end();

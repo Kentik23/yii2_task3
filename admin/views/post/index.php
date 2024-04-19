@@ -38,7 +38,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             'status',
-            //'image',
+            ['attribute' => 'image',
+                'value' => function ($model) {
+                    return Html::img($model->image);
+                },
+                'format' => 'html'
+            ],
             ['attribute' => 'created_at',
                 'value' => function ($model) {
                     return Yii::$app->formatter->asDateTime($model->created_at, 'php: d.m.Y H:i');
