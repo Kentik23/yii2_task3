@@ -47,14 +47,14 @@ class Post extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'title' => 'Title',
-            'text' => 'Text',
-            'category_id' => 'Category ID',
-            'status' => 'Status',
-            'image' => 'Image',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'id' => 'Идентификатор',
+            'title' => 'Название',
+            'text' => 'Содержание',
+            'category_id' => 'Идентификатор категории',
+            'status' => 'Статус',
+            'image' => 'Фотография',
+            'created_at' => 'Дата создания',
+            'updated_at' => 'Дата обновления',
         ];
     }
 
