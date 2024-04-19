@@ -35,8 +35,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'category_id',
             'status',
             //'image',
-            //'created_at',
-            //'updated_at',
+            ['attribute' => 'created_at',
+                'value' => function ($model) {
+                    return Yii::$app->formatter->asDateTime($model->created_at, 'php: d.m.Y H:i');
+                },
+            ],
+            ['attribute' => 'updated_at',
+                'value' => function ($model) {
+                    return Yii::$app->formatter->asDateTime($model->updated_at, 'php: d.m.Y H:i');
+                },
+            ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Post $model, $key, $index, $column) {
