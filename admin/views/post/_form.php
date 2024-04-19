@@ -1,5 +1,6 @@
 <?php
 
+use common\models\Category;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -16,7 +17,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'text')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'category_id')->textInput() ?>
+    <?= $form->field($model, 'category_id')->dropdownList(
+        Category::find()->select(['title', 'id'])->indexBy('id')->column(),
+        ['prompt'=>'Выбрать категорию'] );?>
 
     <?= $form->field($model, 'status')->textInput() ?>
 
