@@ -2,6 +2,7 @@
 
 use common\models\Category;
 use kartik\select2\Select2;
+use mihaildev\ckeditor\CKEditor;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -16,7 +17,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'text')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'text')->widget(CKEditor::className(),[
+        'editorOptions' => [
+            'preset' => 'full', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
+            'inline' => false, //по умолчанию false
+        ],
+    ]); ?>
 
     <?=
         $form->field($model, 'category_id')->widget(Select2::classname(), [

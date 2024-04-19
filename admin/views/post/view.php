@@ -31,7 +31,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'title',
-            'text',
+            [
+                'attribute' => 'text',
+                'format' => 'html',
+            ],
             ['attribute' => 'category_id',
                 'value' => function ($model) {
                     return $model->category->title;
