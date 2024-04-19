@@ -1,6 +1,7 @@
 <?php
 
 use common\models\Category;
+use kartik\select2\Select2;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -17,9 +18,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'text')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'category_id')->dropdownList(
-        Category::find()->select(['title', 'id'])->indexBy('id')->column(),
-        ['prompt'=>'Выбрать категорию'] );?>
+    <?=
+        $form->field($model, 'category_id')->widget(Select2::classname(), [
+            'data' => Category::find()->select(['title', 'id'])->indexBy('id')->column(),
+            'options' => ['placeholder' => 'Select a state ...'],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]);
+    ?>
 
     <?= $form->field($model, 'status')->textInput() ?>
 
