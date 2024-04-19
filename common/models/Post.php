@@ -51,7 +51,7 @@ class Post extends \yii\db\ActiveRecord
             'id' => 'Идентификатор',
             'title' => 'Название',
             'text' => 'Содержание',
-            'category_id' => 'Идентификатор категории',
+            'category_id' => 'Категория',
             'status' => 'Статус',
             'image' => 'Фотография',
             'created_at' => 'Дата создания',

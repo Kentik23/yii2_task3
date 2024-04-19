@@ -32,7 +32,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'title',
             'text',
-            'category_id',
+            ['attribute' => 'category_id',
+                'value' => function ($model) {
+                    return $model->category->title;
+                },
+            ],
             'status',
             //'image',
             ['attribute' => 'created_at',
