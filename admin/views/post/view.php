@@ -29,7 +29,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'title',
             [
                 'attribute' => 'text',
@@ -45,7 +44,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     return \common\models\StatusHelper::getStatusAsString($model->status);
                 }
             ],
-            'image',
+            ['attribute' => 'image',
+                'value' => function ($model) {
+                    return Html::img('/uploads/' . $model->image);
+                },
+                'format' => 'html'
+            ],
             ['attribute' => 'created_at',
                 'value' => function ($model) {
                     return Yii::$app->formatter->asDateTime($model->created_at, 'php: d.m.Y H:i');

@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use admin\modules\rbac\models\ModelSearch;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 
@@ -24,6 +25,8 @@ class Post extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+    public $imageFile;
+
     public static function tableName()
     {
         return 'post';
@@ -39,7 +42,27 @@ class Post extends \yii\db\ActiveRecord
             [['category_id', 'status', 'created_at', 'updated_at'], 'integer'],
             [['title', 'text', 'image'], 'string', 'max' => 255],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
+            [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
         ];
+    }
+
+    public function upload()
+    {
+        if ($this->validate())
+        {
+            $this->imageFile->saveAs('C:/OSPanel/domains/yii2task3/htdocs/uploads/' . $this->imageFile->baseName . '.' . $this->imageFile->extension);
+            $this->image = $this->imageFile->name;
+            return true;
+        } else
+            return false;
+    }
+
+    public function save($runValidation = true, $attributeNames = null)
+    {
+        if ($this->upload() && parent::save(false, $attributeNames))
+            return true;
+        else
+            return false;
     }
 
     /**
