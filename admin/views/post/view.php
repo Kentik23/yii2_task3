@@ -40,7 +40,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->category->title;
                 },
             ],
-            'status',
+            ['attribute' => 'status',
+                'value' => function ($model) {
+                    return \common\models\StatusHelper::getStatusAsString($model->status);
+                }
+            ],
             'image',
             ['attribute' => 'created_at',
                 'value' => function ($model) {

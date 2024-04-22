@@ -7,7 +7,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var admin\models\UploadForm $model */
+/** @var $model */
 /** @var yii\widgets\ActiveForm $form */
 var_dump($model->errors);
 ?>
@@ -43,7 +43,7 @@ var_dump($model->errors);
         );
     ?>
 
-    <?= $form->field($model, 'imageFile')->fileInput() ?>
+    <?= $form->field($model, 'image')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
