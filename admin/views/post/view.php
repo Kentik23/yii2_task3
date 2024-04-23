@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             ['attribute' => 'image',
                 'value' => function ($model) {
-                    return Html::img('/uploads/' . $model->image);
+                    return Html::img('/uploads/img/' . $model->image);
                 },
                 'format' => 'html'
             ],

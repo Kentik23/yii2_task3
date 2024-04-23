@@ -10,6 +10,7 @@ use yii\behaviors\TimestampBehavior;
  * This is the model class for table "post".
  *
  * @property int $id
+ * @property int $user_id
  * @property string $title
  * @property string $text
  * @property int $category_id
@@ -26,6 +27,9 @@ class Post extends \yii\db\ActiveRecord
      * {@inheritdoc}
      */
     public $imageFile;
+    /**
+     * @var int|mixed|string|null
+     */
 
     public static function tableName()
     {
@@ -50,7 +54,7 @@ class Post extends \yii\db\ActiveRecord
     {
         if ($this->validate())
         {
-            $this->imageFile->saveAs('C:/OSPanel/domains/yii2task3/htdocs/uploads/' . $this->imageFile->baseName . '.' . $this->imageFile->extension);
+            $this->imageFile->saveAs('C:\OSPanel\domains\backend-yii2-template-master\htdocs\uploads\img' . $this->imageFile->baseName . '.' . $this->imageFile->extension);
             $this->image = $this->imageFile->name;
             return true;
         } else
