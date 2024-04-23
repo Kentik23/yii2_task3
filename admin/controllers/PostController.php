@@ -95,8 +95,10 @@ class PostController extends AdminController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->load($this->request->post());
+        $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

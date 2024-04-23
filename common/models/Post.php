@@ -46,7 +46,7 @@ class Post extends \yii\db\ActiveRecord
             [['category_id', 'status', 'created_at', 'updated_at'], 'integer'],
             [['title', 'text', 'image'], 'string', 'max' => 255],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
-            [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
+            [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg'],
         ];
     }
 
@@ -54,8 +54,10 @@ class Post extends \yii\db\ActiveRecord
     {
         if ($this->validate())
         {
-            $this->imageFile->saveAs('C:\OSPanel\domains\backend-yii2-template-master\htdocs\uploads\img' . $this->imageFile->baseName . '.' . $this->imageFile->extension);
-            $this->image = $this->imageFile->name;
+            if ($this->imageFile != null) {
+                $this->imageFile->saveAs('C:\OSPanel\domains\backend-yii2-template-master\htdocs\uploads\img' . $this->imageFile->baseName . '.' . $this->imageFile->extension);
+                $this->image = $this->imageFile->name;
+            }
             return true;
         } else
             return false;
