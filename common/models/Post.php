@@ -55,7 +55,7 @@ class Post extends \yii\db\ActiveRecord
         if ($this->validate())
         {
             if ($this->imageFile != null) {
-                $this->imageFile->saveAs('C:\OSPanel\domains\backend-yii2-template-master\htdocs\uploads\img' . $this->imageFile->baseName . '.' . $this->imageFile->extension);
+                $this->imageFile->saveAs(Yii::getAlias('@public') .'\uploads\img' . $this->imageFile->baseName . '.' . $this->imageFile->extension);
                 $this->image = $this->imageFile->name;
             }
             return true;
