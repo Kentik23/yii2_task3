@@ -174,7 +174,8 @@ return [
 //                '<_m:[\w-]+>/<_c:[\w-]+>/<id:\d+>/<_a:[\w-]+>' => '<_m>/<_c>/<_a>',     // v1/user/1/delete
                 'GET <_m:[\w-]+>/<_c:[\w-]+>' => '<_m>/<_c>/view',     // v1/post/view
                 'POST <_m:[\w-]+>/<_c:[\w-]+>' => '<_m>/<_c>/create',     // v1/post/create
-                'PUT <_m:[\w-]+>/<_c:[\w-]+>' => '<_m>/<_c>/update',     // v1/post/update
+                'PUT <_m:[\w-]+>/<_c:[\w-]+>/<id:\d+>' => '<_m>/<_c>/update',     // v1/post/update
+                'DELETE <_m:[\w-]+>/<_c:[\w-]+>/<id:\d+>' => '<_m>/<_c>/delete',     // v1/post/delete
 
                ['class' => 'yii\rest\UrlRule',
                    'controller' => [

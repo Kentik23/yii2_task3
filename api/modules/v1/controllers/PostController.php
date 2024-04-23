@@ -73,4 +73,15 @@ class PostController extends AppController
             return $this->returnError($model->errors);
         }
     }
+
+    public function actionDelete($id)
+    {
+        $model = Post::findOne(['id' => $id]);
+
+        if ($model != null) {
+            $model->delete();
+            return $this->returnSuccess('message', 'success');
+        } else
+            return $this->returnError('message',  'post not found');
+    }
 }
