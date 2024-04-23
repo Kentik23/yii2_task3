@@ -47,6 +47,8 @@ return [
                     'token' => 'b5RWkA>Kx$Kt)R+ZsYe_',
                     'controllersPath' => '../../api/modules/v1/controllers',
                     'defaultControllers' => [
+                        'user',
+                        'post',
                         'app',
                         'default',
                         'dev-info',
@@ -155,6 +157,7 @@ return [
         ],
 
         'urlManager' => [
+
             'class' => UserUrlManager::class,
             'root' => '/htdocs',
             'hideRoot' => true,
@@ -168,15 +171,16 @@ return [
 //                '<_m:[\w-]+>/<_c:[\w-]+>' => '<_m>/<_c>/index',                         // v1/user
 //                '<_m:[\w-]+>/<_c:[\w-]+>/<_a:[\w-]+>' => '<_m>/<_c>/<_a>',              // v1/user/login
 //                '<_m:[\w-]+>/<_c:[\w-]+>/<id:\d+>/<_a:[\w-]+>' => '<_m>/<_c>/<_a>',     // v1/user/1/delete
+                '<_m:[\w-]+>/<_c:[\w-]+>' => '<_m>/<_c>/view',     // v1/post
 
-//               ['class' => 'yii\rest\UrlRule',
-//                   'controller' => [
-//                       'v1/user',
-//                       'v1/test',
-//                       'v1/post',
-//                       'v1/rbac'
-//                    ]
-//               ],
+               ['class' => 'yii\rest\UrlRule',
+                   'controller' => [
+                       'v1/user',
+                       'v1/test',
+                       'v1/post',
+                       'v1/rbac'
+                    ]
+               ],
             ],
         ],
 
