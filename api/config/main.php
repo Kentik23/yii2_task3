@@ -69,6 +69,7 @@ return [
             'enableCsrfValidation' => false,
             'parsers' => [
                 'application/json' => JsonParser::class,
+                'multipart/form-data' => 'yii\web\MultipartFormDataParser',
             ]
         ],
 
@@ -171,7 +172,8 @@ return [
 //                '<_m:[\w-]+>/<_c:[\w-]+>' => '<_m>/<_c>/index',                         // v1/user
 //                '<_m:[\w-]+>/<_c:[\w-]+>/<_a:[\w-]+>' => '<_m>/<_c>/<_a>',              // v1/user/login
 //                '<_m:[\w-]+>/<_c:[\w-]+>/<id:\d+>/<_a:[\w-]+>' => '<_m>/<_c>/<_a>',     // v1/user/1/delete
-                '<_m:[\w-]+>/<_c:[\w-]+>' => '<_m>/<_c>/view',     // v1/post
+                'GET <_m:[\w-]+>/<_c:[\w-]+>' => '<_m>/<_c>/view',     // v1/post
+                'POST <_m:[\w-]+>/<_c:[\w-]+>' => '<_m>/<_c>/create',     // v1/post
 
                ['class' => 'yii\rest\UrlRule',
                    'controller' => [

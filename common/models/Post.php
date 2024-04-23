@@ -42,7 +42,7 @@ class Post extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'text', 'category_id', 'status'], 'required'],
+            [['title', 'text', 'category_id'], 'required'],
             [['category_id', 'status', 'created_at', 'updated_at'], 'integer'],
             [['title', 'text', 'image'], 'string', 'max' => 255],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],

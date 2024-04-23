@@ -4,6 +4,7 @@ namespace api\modules\v1\controllers;
 
 use common\models\Post;
 use Yii;
+use yii\web\UploadedFile;
 
 class PostController extends AppController
 {
@@ -37,5 +38,22 @@ class PostController extends AppController
         return $array;
     }
 
+    public function actionCreate(): array
+    {
+        $post = Yii::$app->request->post();
+        if (!$post) {
+            return $this->returnError(Yii::t('app', 'Data required'));
+        }
 
+        $model = new Post();
+        $model->load($post, '');
+        $model->status = 10;
+        $model->user_id = (int)Yii::$app->user->id;
+        $model->imageFile = UploadedFile::getInstanceByName('imageFile');
+        if ($model->save()) {
+            return $model->toArray();
+        } else {
+            return $this->returnError($model->errors);
+        }
+    }
 }
