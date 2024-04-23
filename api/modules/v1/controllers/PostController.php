@@ -56,4 +56,21 @@ class PostController extends AppController
             return $this->returnError($model->errors);
         }
     }
+
+    public function actionUpdate($id)
+    {
+        $post = Yii::$app->request->post();
+        if (!$post) {
+            return $this->returnError(Yii::t('app', 'Data required'));
+        }
+
+        $model = Post::findOne(['id' => $id]);
+        $model->load($post, '');
+        $model->imageFile = UploadedFile::getInstanceByName('imageFile');
+        if ($model->save()) {
+            return $model->toArray();
+        } else {
+            return $this->returnError($model->errors);
+        }
+    }
 }

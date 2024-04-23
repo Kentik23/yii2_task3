@@ -172,8 +172,9 @@ return [
 //                '<_m:[\w-]+>/<_c:[\w-]+>' => '<_m>/<_c>/index',                         // v1/user
 //                '<_m:[\w-]+>/<_c:[\w-]+>/<_a:[\w-]+>' => '<_m>/<_c>/<_a>',              // v1/user/login
 //                '<_m:[\w-]+>/<_c:[\w-]+>/<id:\d+>/<_a:[\w-]+>' => '<_m>/<_c>/<_a>',     // v1/user/1/delete
-                'GET <_m:[\w-]+>/<_c:[\w-]+>' => '<_m>/<_c>/view',     // v1/post
-                'POST <_m:[\w-]+>/<_c:[\w-]+>' => '<_m>/<_c>/create',     // v1/post
+                'GET <_m:[\w-]+>/<_c:[\w-]+>' => '<_m>/<_c>/view',     // v1/post/view
+                'POST <_m:[\w-]+>/<_c:[\w-]+>' => '<_m>/<_c>/create',     // v1/post/create
+                'PUT <_m:[\w-]+>/<_c:[\w-]+>' => '<_m>/<_c>/update',     // v1/post/update
 
                ['class' => 'yii\rest\UrlRule',
                    'controller' => [
