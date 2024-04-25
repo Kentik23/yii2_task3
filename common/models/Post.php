@@ -55,8 +55,14 @@ class Post extends \yii\db\ActiveRecord
         if ($this->validate())
         {
             if ($this->imageFile != null) {
-                $this->imageFile->saveAs(Yii::getAlias('@public') .'\uploads\img' . $this->imageFile->baseName . '.' . $this->imageFile->extension);
-                $this->image = $this->imageFile->name;
+                $file = Yii::getAlias('@public') . '\uploads\img\\' . $this->image;
+                if (file_exists($file) && is_file($file))
+                {
+                    unlink($file);
+                }
+                $fileHash = hash('adler32', $this->imageFile . time());
+                $this->imageFile->saveAs(Yii::getAlias('@public') .'\uploads\img\\' . $fileHash . '.' . $this->imageFile->extension);
+                $this->image = $fileHash . '.' . $this->imageFile->extension;
             }
             return true;
         } else
@@ -69,6 +75,16 @@ class Post extends \yii\db\ActiveRecord
             return true;
         else
             return false;
+    }
+
+    public function delete()
+    {
+        parent::delete();
+        $file = Yii::getAlias('@public') . '/uploads/img/' . $this->image;
+        if (file_exists($file))
+        {
+            unlink($file);
+        }
     }
 
     /**
