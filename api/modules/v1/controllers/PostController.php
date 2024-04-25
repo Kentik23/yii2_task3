@@ -14,18 +14,18 @@ class PostController extends AppController
         $id = $this->getParameterFromRequest('id');
         $first_item = $this->getParameterFromRequest('first_item', -1);
         $item_count = $this->getParameterFromRequest('item_count', -1);
-        $user_id = (int)Yii::$app->user->id;
+        $user_id = $this->getParameterFromRequest('user_id');
         $category_id = $this->getParameterFromRequest('category_id');
 
         if ($id) return $this->findModel(['id' => $id])->toArray();
 
         if ($user_id && $category_id) return Post::find()->where(['user_id' => $user_id, 'category_id' => $category_id])->limit($item_count)->offset($first_item)->all();
 
+        if ($category_id) return Post::find()->where(['category_id' => $category_id])->limit($item_count)->offset($first_item)->all();
+
         if ($user_id) return Post::find()->where(['user_id' => $user_id])->limit($item_count)->offset($first_item)->all();
 
-        $array = Post::find()->all();
-
-        return $array;
+        return Post::find()->all();;
     }
 
     public function actionCreate(): array

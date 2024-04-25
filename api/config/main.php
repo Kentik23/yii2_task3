@@ -34,7 +34,7 @@ return [
     'language' => 'ru-RU',
     'controllerNamespace' => 'app\controllers',
     'aliases' => [
-        '@images' => '/uploads/global/',
+        '@images' => '/uploads/img/',
     ],
 //    'defaultRoute' => 'site/index',
     'modules' => [
@@ -171,7 +171,7 @@ return [
 //                '<_m:[\w-]+>/<_c:[\w-]+>/<id:\d+>' => '<_m>/<_c>/index',                // v1/user/1
 //                '<_m:[\w-]+>/<_c:[\w-]+>' => '<_m>/<_c>/index',                         // v1/user
 //                '<_m:[\w-]+>/<_c:[\w-]+>/<_a:[\w-]+>' => '<_m>/<_c>/<_a>',              // v1/user/login
-//                '<_m:[\w-]+>/<_c:[\w-]+>/<id:\d+>/<_a:[\w-]+>' => '<_m>/<_c>/<_a>',     // v1/user/1/delete
+//                '<_m:[\w-]+>/<_c:[\w-]+>/<id:\d+>/<_a:[\w-]+>' => '<_m>/<_c>/<_a>',     // v1/user/1/deleted
                 'GET <_m:[\w-]+>/<_c:[\w-]+>' => '<_m>/<_c>/view',     // v1/post/view
                 'POST <_m:[\w-]+>/<_c:[\w-]+>' => '<_m>/<_c>/create',     // v1/post/create
                 'PUT <_m:[\w-]+>/<_c:[\w-]+>/<id:\d+>' => '<_m>/<_c>/update',     // v1/post/update
