@@ -4,11 +4,22 @@ namespace api\modules\v1\controllers;
 
 use common\models\Post;
 use Yii;
+use yii\filters\auth\HttpBearerAuth;
+use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
 
 class PostController extends AppController
 {
+    public function behaviors(): array
+    {
+        return ArrayHelper::merge(parent::behaviors(), [
+            'authentificator' => [
+                'class' => HttpBearerAuth::class,
+                'except' => ['view']
+            ],
+        ]);
+    }
     public function actionView(): array
     {
         $id = $this->getParameterFromRequest('id');
@@ -57,13 +68,17 @@ class PostController extends AppController
         }
 
         $model = $this->findModel(['id' => $id]);
-        $model->load($post, '');
-        $model->imageFile = UploadedFile::getInstanceByName('imageFile');
-        if ($model->save()) {
-            return $model->toArray();
-        } else {
-            return $this->returnError($model->errors);
-        }
+
+        if ($model->user_id == (int)Yii::$app->user->id) {
+            $model->load($post, '');
+            $model->imageFile = UploadedFile::getInstanceByName('imageFile');
+            if ($model->save()) {
+                return $model->toArray();
+            } else {
+                return $this->returnError($model->errors);
+            }
+        } else
+            return $this->returnError('message',  'post access denied');
     }
 
     public function actionDelete($id)
@@ -71,8 +86,11 @@ class PostController extends AppController
         $model = $this->findModel(['id' => $id]);
 
         if ($model != null) {
-            $model->delete();
-            return $this->returnSuccess('message', 'success');
+            if ($model->user_id == (int)Yii::$app->user->id) {
+                $model->delete();
+                return $this->returnSuccess('message', 'success');
+            } else
+                return $this->returnError('message',  'post access denied');
         } else
             return $this->returnError('message',  'post not found');
     }
